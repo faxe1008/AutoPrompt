@@ -62,6 +62,9 @@ def get_llm(config: dict):
             task="text-generation",
             pipeline_kwargs={"max_new_tokens": config['max_new_tokens']},
         )
+    elif config['type'] == 'Anthropic':
+        from langchain_anthropic import ChatAnthropic
+        return ChatAnthropic(temperature=temperature, model=config['name'], anthropic_api_key=LLM_ENV['anthropic']['ANTHROPIC_API_KEY'])
     else:
         raise NotImplementedError("LLM not implemented")
 
